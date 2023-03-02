@@ -1,0 +1,18 @@
+<html>
+  <body>
+    <input></input>
+    <button>go</button>
+    <div id='result'></div>
+  </body>
+  <script>
+    const input = document.querySelector('input');
+    const button = document.querySelector('button');
+    const result = document.querySelector('#result');
+    button.onclick = () => {
+      const words = input.value;
+      fetch(`/go?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
+        result.innerText = text;
+      });
+    }
+  </script>
+</html>

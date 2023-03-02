@@ -1,0 +1,23 @@
+{
+  "name": "haiku",
+  "version": "0.0.1",
+  "description": "pde haiku generator",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"nothing to build\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diracdeltas/haiku.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diracdeltas/haiku/issues"
+  },
+  "homepage": "https://github.com/diracdeltas/haiku#readme",
+  "devDependencies": {
+    "chatgpt": "^5.0.4",
+    "express": "^4.18.2"
+  }
+}
