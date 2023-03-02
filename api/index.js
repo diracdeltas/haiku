@@ -10,9 +10,9 @@ async function setup() {
 
 app.get('/api', async (req, res) => {
   api = api || await setup();
-  const output = await api.sendMessage(
-    `Write a haiku about the following: ${req.params.words}`
-  );
+  const prompt = `Write a haiku about the following theme: ${req.query.words}`
+  console.log(`prompt: ${prompt}`);
+  const output = await api.sendMessage(prompt);
   res.setHeader('Content-Type', 'text/plain');
   res.end(output.text);
 })

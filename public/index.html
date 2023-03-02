@@ -12,6 +12,7 @@
     const button = document.querySelector('button');
     const result = document.querySelector('#result');
     button.onclick = () => {
+      result.innerText = 'churning...';
       const words = input.value;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
