@@ -18,6 +18,11 @@
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
       });
-    }
+    };
+    input.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        button.onclick();
+      }
+    });
   </script>
 </html>
