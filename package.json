@@ -18,7 +18,6 @@
   "homepage": "https://github.com/diracdeltas/haiku#readme",
   "devDependencies": {
     "chatgpt": "^5.0.4",
-    "express": "^4.18.2",
-    "express-basic-auth": "^1.2.1"
+    "express": "^4.18.2"
   }
 }
