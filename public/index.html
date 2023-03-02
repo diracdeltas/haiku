@@ -10,7 +10,7 @@
     const result = document.querySelector('#result');
     button.onclick = () => {
       const words = input.value;
-      fetch(`/go?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
+      fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
       });
     }

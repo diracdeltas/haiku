@@ -2,7 +2,7 @@
   "name": "haiku",
   "version": "0.0.1",
   "description": "pde haiku generator",
-  "main": "index.js",
+  "main": "api/index.js",
   "scripts": {
     "build": "echo \"nothing to build\""
   },
