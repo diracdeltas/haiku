@@ -1,4 +1,9 @@
 const app = require('express')();
+const basicAuth = require('express-basic-auth');
+
+app.use(basicAuth({
+    users: { 'pde': process.env.PASSWORD }
+}));
 
 let api = null;
 
