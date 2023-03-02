@@ -1,8 +1,8 @@
 const app = require('express')();
 
 async function setup() {
-  const { ChatGPTAPI } = await import('chatgpt');
-  return new ChatGPTAPI({ apiKey: process.env.OPENAI_API_KEY });
+  const { ChatGPTUnofficialProxyAPI } = await import('chatgpt');
+  return new ChatGPTUnofficialProxyAPI({ apiKey: process.env.OPENAI_ACCESS_TOKEN});
 }
 
 app.get('/api', async (req, res) => {
