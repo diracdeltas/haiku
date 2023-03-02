@@ -5,9 +5,8 @@ async function setup() {
   return new ChatGPTAPI({ apiKey: process.env.OPENAI_API_KEY });
 }
 
-const api = await setup();
-
 app.get('/api', async (req, res) => {
+  const api = await setup();
   const output = await api.sendMessage(
     `Write a haiku about the following: ${req.params.words}`
   );
