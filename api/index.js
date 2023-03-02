@@ -1,9 +1,11 @@
-import { ChatGPTAPI } from 'chatgpt';
-
 const app = require('express')();
-const api = new ChatGPTAPI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+
+async function setup() {
+  const { ChatGPTAPI } = await import('chatgpt');
+  return new ChatGPTAPI({ apiKey: process.env.OPENAI_API_KEY });
+}
+
+const api = await setup();
 
 app.get('/api', async (req, res) => {
   const output = await api.sendMessage(
