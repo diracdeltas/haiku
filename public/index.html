@@ -6,13 +6,17 @@
   <body style='font-size:20;'>
     <input placeholder='enter a haiku theme'>
     <button>generate</button>
-    <div id='result' style='margin-top:20px;'></div>
+    <div id='result' style='margin-top:20px; background:rgba(255,255,255,0.5);'></div>
   </body>
   <script>
     const input = document.querySelector('input');
     const button = document.querySelector('button');
     const result = document.querySelector('#result');
+    const body = document.querySelector('body');
     button.onclick = () => {
+      const rand = Math.ceil(Math.random() * 746);
+      const background = `./img/${rand}.jpg`;
+      body.style.backgroundImage = `url("${background}")`;
       result.innerText = 'churning...';
       const words = input.value;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
