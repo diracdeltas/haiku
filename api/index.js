@@ -12,9 +12,19 @@ async function setup() {
   return api;
 }
 
+const promptLengthMax = 200;
+
 app.get('/api', async (req, res) => {
   api = api || await setup();
-  const prompt = `Write a haiku about the following theme: ${req.query.words}`
+  
+  const words = req.query.words;
+  if (words.length > promptLengthMax) {
+    console.error(`Rejected request because prompt was too long: ${words.length} > ${promptLengthMax}`);
+    res.status(400).end();
+    return;
+  }
+
+  const prompt = `Write a haiku about the following theme: ${words}`
   console.log(`prompt: ${prompt}`);
   const output = await api.sendMessage(prompt);
   res.setHeader('Content-Type', 'text/plain');
