@@ -11,29 +11,42 @@
           width: 500px;
           background: no-repeat;
         }
-        .noprint {
+        [data-html2canvas-ignore='true'] {
           display: none;
         }
       }
     </style>
   </head>
   <body style='font-size:20; -webkit-print-color-adjust:exact;'>
-    <input class='noprint' placeholder='enter a haiku theme'>
-    <button class='noprint' id='button'>generate</button>
+    <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
+    <button data-html2canvas-ignore='true' id='button'>generate</button>
     <div id='result' style='width:484px; margin-top:20px; background:rgba(255,255,255,0.5);'></div>
-    <button class='noprint' id='print' style='visibility:hidden; margin-top:20px;'>print card</button>
+    <div id='controls' data-html2canvas-ignore='true' style='visibility:hidden; margin-top: 20px'>
+      <button id='save'>save card</button>
+      <button id='print'>print card</button>
+    </div>
   </body>
+  <script src='./html2canvas.min.js'></script>
   <script>
+    function downloadImage(canvas) {
+      const a = document.createElement('a');
+      const data = canvas.toDataURL('image/jpeg', 1.0);
+      a.href = data;
+      a.download = `${Date.now()}.jpeg`;
+      a.click();
+    }
     const input = document.querySelector('input');
     const button = document.querySelector('#button');
     const result = document.querySelector('#result');
     const body = document.querySelector('body');
     const print = document.querySelector('#print');
+    const save = document.querySelector('#save');
+    const controls = document.querySelector('#controls');
     print.onclick = () => {
       window.print();
     };
     button.onclick = () => {
-      print.style.visibility = 'hidden';
+      controls.style.visibility = 'hidden';
       const rand = Math.ceil(Math.random() * 746);
       const background = `./img/${rand}.jpg`;
       body.style.backgroundImage = `url("${background}")`;
@@ -41,7 +54,22 @@
       const words = input.value;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
-        print.style.visibility = 'visible';
+        save.onclick = () => {
+          html2canvas(body, {
+            windowWidth: '515px',
+            windowHeight: '700px',
+            onclone: (clone) => {
+              clone.body.style.backgroundRepeat = 'no-repeat';
+              const result = clone.querySelector('#result');
+              result.style.position = 'fixed';
+              result.style.top = '20px';
+              result.style.left = '15px';
+            }
+          }).then((canvas) => {
+            downloadImage(canvas);
+          })
+        };
+        controls.style.visibility = 'visible';
       });
     };
     input.addEventListener('keyup', (event) => {
