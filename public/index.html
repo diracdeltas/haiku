@@ -8,6 +8,10 @@
         -webkit-print-color-adjust: exact;
       }
 
+      #generator * {
+        font-size: 30px;
+      }
+
       #result {
         width:484px;
         margin-top:20px;
@@ -35,7 +39,7 @@
   </head>
   <body>
     <div id='generator'>
-      <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
+      <input size=30 data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
       <button data-html2canvas-ignore='true' id='button'>generate</button>
     </div>
     <div id='result'></div>
