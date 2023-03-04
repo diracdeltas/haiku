@@ -3,6 +3,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>haikubot</title>
     <style>
+      body {
+        font-size: 20px;
+        -webkit-print-color-adjust: exact;
+      }
+
+      #result {
+        width:484px;
+        margin-top:20px;
+        background:rgba(255,255,255,0.5);
+      }
+
+      #controls {
+        visibility:hidden;
+        margin-top: 20px;
+      }
+
       @media print {
         * {
           -webkit-print-color-adjust: exact !important;
@@ -17,11 +33,13 @@
       }
     </style>
   </head>
-  <body style='font-size:20; -webkit-print-color-adjust:exact;'>
-    <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
-    <button data-html2canvas-ignore='true' id='button'>generate</button>
-    <div id='result' style='width:484px; margin-top:20px; background:rgba(255,255,255,0.5);'></div>
-    <div id='controls' data-html2canvas-ignore='true' style='visibility:hidden; margin-top: 20px'>
+  <body>
+    <div id='generator'>
+      <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
+      <button data-html2canvas-ignore='true' id='button'>generate</button>
+    </div>
+    <div id='result'></div>
+    <div id='controls' data-html2canvas-ignore='true'>
       <button id='save'>save card</button>
       <button id='print'>print card</button>
       <button id='share'>share card</button>
