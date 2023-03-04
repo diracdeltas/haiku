@@ -32,13 +32,35 @@
         background-color: rgba(188,188,255,0.5);
       }
 
-      #marquee {
+			#marquee {
+				height: 40px;
+				width: 484px;
+        padding-top: 15px;
+        padding-bottom: 20px;
+				overflow: hidden;
+				position: relative;
+			}
+
+			#marquee div {
+				display: block;
+				width: 200%;
+				position: absolute;
+				overflow: hidden;
+				animation: marquee 5s linear infinite;
+			}
+
+			#marquee span {
+				float: left;
+				width: 50%;
         color: black;
         font-size: 30px;
         font-family: monospace;
-        padding-bottom: 20px;
-        padding-top: 20px;
-      }
+			}
+
+			@keyframes marquee {
+				0% { left: 0; }
+				100% { left: -100%; }
+			}
 
       @media print {
         * {
@@ -56,7 +78,10 @@
     </style>
   </head>
   <body>
-    <marquee data-html2canvas-ignore='true' id='marquee' width='490px' behavior='alternate'>&#128302;haikus for peter&#128302;</marquee>
+    <div data-html2canvas-ignore='true' id='marquee' width='490px'><div>
+			<span>&#128302;haikus for peter&#128302;</span>
+			<span>&#128302;haikus for peter&#128302;</span>
+   </div></div>
     <div id='generator'>
       <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
       <button data-html2canvas-ignore='true' id='button'>generate</button>
@@ -104,7 +129,7 @@
     }
 
     if (window.location.hash !== '#autosave') {
-      document.querySelector('marquee').style.display = 'none';
+      document.querySelector('#marquee').style.display = 'none';
     }
 
 
