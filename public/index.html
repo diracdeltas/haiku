@@ -24,6 +24,7 @@
     <div id='controls' data-html2canvas-ignore='true' style='visibility:hidden; margin-top: 20px'>
       <button id='save'>save card</button>
       <button id='print'>print card</button>
+      <button id='share'>share card</button>
     </div>
   </body>
   <script src='./html2canvas.min.js'></script>
@@ -41,10 +42,28 @@
     const body = document.querySelector('body');
     const print = document.querySelector('#print');
     const save = document.querySelector('#save');
+    const share = document.querySelector('#share');
     const controls = document.querySelector('#controls');
     print.onclick = () => {
       window.print();
     };
+
+    save.onclick = () => {
+      html2canvas(body, {
+        windowWidth: '515px',
+        windowHeight: '700px',
+        onclone: (clone) => {
+          clone.body.style.backgroundRepeat = 'no-repeat';
+          const result = clone.querySelector('#result');
+          result.style.position = 'fixed';
+          result.style.top = '20px';
+          result.style.left = '15px';
+        }
+      }).then((canvas) => {
+        downloadImage(canvas);
+      })
+    };
+
     button.onclick = () => {
       controls.style.visibility = 'hidden';
       const rand = Math.ceil(Math.random() * 746);
@@ -54,27 +73,13 @@
       const words = input.value;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
-        save.onclick = () => {
-          html2canvas(body, {
-            windowWidth: '515px',
-            windowHeight: '700px',
-            onclone: (clone) => {
-              clone.body.style.backgroundRepeat = 'no-repeat';
-              const result = clone.querySelector('#result');
-              result.style.position = 'fixed';
-              result.style.top = '20px';
-              result.style.left = '15px';
-            }
-          }).then((canvas) => {
-            downloadImage(canvas);
-          })
-        };
         if (window.location.hash === '#autosave') {
           save.onclick();
         }
         controls.style.visibility = 'visible';
       });
     };
+
     input.addEventListener('keyup', (event) => {
       if (event.key === 'Enter') {
         button.onclick();
