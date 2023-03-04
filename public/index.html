@@ -38,6 +38,10 @@
     const share = document.querySelector('#share');
     const controls = document.querySelector('#controls');
 
+    if (!navigator.canShare) {
+      share.style.display = 'none';
+    }
+
     print.onclick = () => {
       window.print();
     };
