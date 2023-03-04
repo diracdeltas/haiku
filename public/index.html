@@ -5,7 +5,6 @@
     <style>
       body * {
         font-size: clamp(16px, 2vw, 25px);
-        -webkit-print-color-adjust: exact;
       }
 
       #result {
@@ -27,6 +26,7 @@
       @media print {
         * {
           -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
         }
         body {
           width: 500px;
@@ -68,6 +68,8 @@
     }
 
     print.onclick = () => {
+      // @media print doesn't reset this somehow
+      body.style.backgroundColor = 'white';
       window.print();
     };
 
@@ -78,6 +80,7 @@
         windowHeight: '700px',
         onclone: (clone) => {
           clone.body.style.backgroundRepeat = 'no-repeat';
+          clone.body.style.backgroundColor = 'white';
           const result = clone.querySelector('#result');
           result.style.position = 'fixed';
           result.style.top = '20px';
