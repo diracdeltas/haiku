@@ -71,8 +71,38 @@
       })
     };
 
-    share.onclick = () => {
+    function shareImage(canvas) {
+      renderCanvas().then((canvas) => {
+        canvas.toBlob(
+          (blob) => {
+            const filename = `${Date.now()}.jpeg`;
+            const file = new File([blob], filename, {
+              type: 'image/jpeg',
+            });
+            const files = [file];
 
+            if (navigator.canShare && navigator.canShare({files})) {
+              navigator.share({
+                files,
+                title: 'Haiku',
+                text: `Haiku generated from prompt: ${input.value}`,
+              })
+              .then(() => console.log('Shared successfully'))
+              .catch((error) => console.log('Sharing failed', error));
+            } else {
+              console.log(`Your system doesn't support sharing files.`);
+            }
+          },
+          "image/jpeg",
+          1.0
+        );
+      });
+    }
+
+    share.onclick = () => {
+      renderCanvas().then((canvas) => {
+        shareImage(canvas);
+      });
     };
 
     button.onclick = () => {
