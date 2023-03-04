@@ -202,6 +202,8 @@ Concision desired.`;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
         if (window.location.hash === '#autosave') {
+          controls.style.position = 'fixed';
+          controls.style.bottom = '0';
           instructions.style.display = 'block';
           save.style.display = 'none';
           save.onclick();
