@@ -24,11 +24,16 @@ app.get('/api', async (req, res) => {
     return;
   }
 
-  const prompt = `Write a haiku about the following theme: ${words}`
-  console.log(`prompt: ${prompt}`);
-  const output = await api.sendMessage(prompt);
-  res.setHeader('Content-Type', 'text/plain');
-  res.end(output.text);
+  console.log(`Accepted request with prompt: ${prompt}`);
+  const prompt = `Write a haiku about the following theme: ${words}`;
+  try {
+    const output = await api.sendMessage(prompt);
+    res.setHeader('Content-Type', 'text/plain');
+    res.end(output.text);      
+  } catch (error) {
+    console.error(`Haiku generation failed:`, error);
+    res.status(500).end();
+  }
 })
 
 module.exports = app;
