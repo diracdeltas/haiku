@@ -24,8 +24,8 @@ app.get('/api', async (req, res) => {
     return;
   }
 
-  console.log(`Accepted request with prompt: ${prompt}`);
   const prompt = `Write a haiku about the following theme: ${words}`;
+  console.log(`Accepted request with prompt: ${prompt}`);
   try {
     const output = await api.sendMessage(prompt);
     res.setHeader('Content-Type', 'text/plain');
