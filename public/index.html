@@ -29,13 +29,6 @@
   </body>
   <script src='./html2canvas.min.js'></script>
   <script>
-    function downloadImage(canvas) {
-      const a = document.createElement('a');
-      const data = canvas.toDataURL('image/jpeg', 1.0);
-      a.href = data;
-      a.download = `${Date.now()}.jpeg`;
-      a.click();
-    }
     const input = document.querySelector('input');
     const button = document.querySelector('#button');
     const result = document.querySelector('#result');
@@ -63,6 +56,14 @@
         }
       });
     };
+
+    function downloadImage(canvas) {
+      const a = document.createElement('a');
+      const data = canvas.toDataURL('image/jpeg', 1.0);
+      a.href = data;
+      a.download = `${Date.now()}.jpeg`;
+      a.click();
+    }
 
     save.onclick = () => {
       renderCanvas().then((canvas) => {
