@@ -44,12 +44,14 @@
     const save = document.querySelector('#save');
     const share = document.querySelector('#share');
     const controls = document.querySelector('#controls');
+
     print.onclick = () => {
       window.print();
     };
 
-    save.onclick = () => {
-      html2canvas(body, {
+    // Returns `Promise<HTMLCanvasElement>`
+    const renderCanvas = () => {
+      return html2canvas(body, {
         windowWidth: '515px',
         windowHeight: '700px',
         onclone: (clone) => {
@@ -59,9 +61,17 @@
           result.style.top = '20px';
           result.style.left = '15px';
         }
-      }).then((canvas) => {
+      });
+    };
+
+    save.onclick = () => {
+      renderCanvas().then((canvas) => {
         downloadImage(canvas);
       })
+    };
+
+    share.onclick = () => {
+
     };
 
     button.onclick = () => {
