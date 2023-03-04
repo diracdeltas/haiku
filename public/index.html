@@ -66,6 +66,12 @@
     if (!navigator.canShare) {
       share.style.display = 'none';
     }
+    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+    if (isFirefox) {
+      // saving doesn't render with background image on ff :(
+      save.style.display = 'none';
+    }
+
 
     print.onclick = () => {
       // @media print doesn't reset this somehow
