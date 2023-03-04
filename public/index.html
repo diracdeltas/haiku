@@ -122,8 +122,8 @@
             if (navigator.canShare && navigator.canShare({files})) {
               navigator.share({
                 files,
-                title: 'Haiku',
-                text: `Haiku generated from prompt: ${input.value}`,
+                text: `Haiku Bot (https://haiku.chat) generated the following haiku from your prompt: ${input.value}`,
+                title: 'Haiku Bot',
               })
               .then(() => console.log('Shared successfully'))
               .catch((error) => console.log('Sharing failed', error));
