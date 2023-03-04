@@ -105,13 +105,27 @@
       });
     };
 
+    const promptLengthMax = 200;
+    const promptLengthWarningHaiku = `Words overflow prompt,
+Rejected for being long,
+Concision desired.`;
+
     button.onclick = () => {
       controls.style.visibility = 'hidden';
+
+      const words = input.value;
+      if (words.length > promptLengthMax) {
+        result.innerText = promptLengthWarningHaiku;
+        body.style.backgroundImage = 'none';
+        body.style.backgroundColor = 'white';
+        return;
+      }
+
       const rand = Math.ceil(Math.random() * 746);
       const background = `./img/${rand}.jpg`;
       body.style.backgroundImage = `url("${background}")`;
       result.innerText = 'churning...';
-      const words = input.value;
+
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
         if (window.location.hash === '#autosave') {
