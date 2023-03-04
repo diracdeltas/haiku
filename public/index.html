@@ -20,6 +20,7 @@
       }
 
       button {
+        color: black;
         background-color: rgba(188,188,255,0.5);
       }
 
@@ -39,7 +40,7 @@
   </head>
   <body>
     <div id='generator'>
-      <input size=30 data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
+      <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
       <button data-html2canvas-ignore='true' id='button'>generate</button>
     </div>
     <div id='result'></div>
@@ -59,6 +60,8 @@
     const save = document.querySelector('#save');
     const share = document.querySelector('#share');
     const controls = document.querySelector('#controls');
+
+    body.style.backgroundColor = '#' + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0');
 
     if (!navigator.canShare) {
       share.style.display = 'none';
