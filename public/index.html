@@ -129,6 +129,7 @@ Concision desired.`;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
         if (window.location.hash === '#autosave') {
+          save.style.display = 'none';
           save.onclick();
         }
         controls.style.visibility = 'visible';
