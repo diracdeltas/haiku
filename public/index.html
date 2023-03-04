@@ -14,13 +14,30 @@
       }
 
       #controls {
-        visibility:hidden;
+        visibility: hidden;
         margin-top: 20px;
+      }
+
+      #instructions {
+        background:rgba(255,255,255,0.75);
+        display: none;
+      }
+
+      #instructions * {
+        font-size: clamp(16px, 1.5vw, 20px);
       }
 
       button {
         color: black;
         background-color: rgba(188,188,255,0.5);
+      }
+
+      #marquee {
+        color: black;
+        font-size: 30px;
+        font-family: monospace;
+        padding-bottom: 20px;
+        padding-top: 20px;
       }
 
       @media print {
@@ -39,6 +56,7 @@
     </style>
   </head>
   <body>
+    <marquee data-html2canvas-ignore='true' id='marquee' width='490px' behavior='alternate'>&#128302;haikus for peter&#128302;</marquee>
     <div id='generator'>
       <input data-html2canvas-ignore='true' placeholder='enter a haiku theme'>
       <button data-html2canvas-ignore='true' id='button'>generate</button>
@@ -48,6 +66,18 @@
       <button id='save'>save card</button>
       <button id='print'>print card</button>
       <button id='share'>share card</button>
+      <ul id='instructions'>
+        <li>Haikus/pictures are saved automatically and will be shared after the event.</li>
+        <li>Click <b>print card</b> to print a copy here.</li>
+        <li>Click <b>share card</b> to send a card via airdrop, email, or iMessage.
+          <ul>
+            If airdropping, turn on Settings &gt; General &gt; Airdrop &gt; "Everyone for 10 minutes" first on your phone.
+          </ul>
+          <ul>
+            If emailing, add a subject line to reduce the chance that it will get spam filtered.
+          </ul>
+        </li>
+      </ul>
     </div>
   </body>
   <script src='./html2canvas.min.js'></script>
@@ -60,6 +90,7 @@
     const save = document.querySelector('#save');
     const share = document.querySelector('#share');
     const controls = document.querySelector('#controls');
+    const instructions = document.querySelector('#instructions');
 
     body.style.backgroundColor = '#' + ((1 << 24) * Math.random() | 0).toString(16).padStart(6, '0');
 
@@ -70,6 +101,10 @@
     if (isFirefox) {
       // saving doesn't render with background image on ff :(
       save.style.display = 'none';
+    }
+
+    if (window.location.hash !== '#autosave') {
+      document.querySelector('marquee').style.display = 'none';
     }
 
 
@@ -167,6 +202,7 @@ Concision desired.`;
       fetch(`/api?${new URLSearchParams({words})}`).then((response) => response.text()).then((text) => {
         result.innerText = text;
         if (window.location.hash === '#autosave') {
+          instructions.style.display = 'block';
           save.style.display = 'none';
           save.onclick();
         }
