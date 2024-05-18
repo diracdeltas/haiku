@@ -91,18 +91,17 @@
       <button id='save'>save card</button>
       <button id='print'>print card</button>
       <button id='share'>share card</button>
-      <ul id='instructions'>
-        <li>Haikus/pictures are saved automatically and will be shared after the event.</li>
-        <li>Click <b>print card</b> to print a copy here.</li>
-        <li>Click <b>share card</b> to send a card via airdrop, email, or iMessage.
-          <ul>
+      <div id='instructions'>
+        Click "share card" to send a card via airdrop, email, or iMessage.
+        <ul>
+          <li>
             If airdropping, turn on Settings &gt; General &gt; Airdrop &gt; "Everyone for 10 minutes" first on your phone.
-          </ul>
-          <ul>
+          </li>
+          <li>
             If emailing, add a subject line to reduce the chance that it will get spam filtered.
-          </ul>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
   </body>
   <script src='./html2canvas.min.js'></script>
@@ -131,7 +130,6 @@
     if (window.location.hash !== '#autosave') {
       document.querySelector('#marquee').style.display = 'none';
     }
-
 
     print.onclick = () => {
       // @media print doesn't reset this somehow
@@ -231,7 +229,7 @@ Concision desired.`;
           controls.style.bottom = '0';
           instructions.style.display = 'block';
           save.style.display = 'none';
-          save.onclick();
+          print.style.display = 'none';
         }
         controls.style.visibility = 'visible';
       });
