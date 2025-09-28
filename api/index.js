@@ -1,22 +1,23 @@
-const app = require('express')();
+import OpenAI from 'openai';
+import express from 'express';
 
-let api = null;
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const OPENROUTER_BASE_URL =
+  process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
+const MODEL = 'tngtech/deepseek-r1t2-chimera:free';
 
-async function setup() {
-  /*
-  const { ChatGPTUnofficialProxyAPI } = await import('chatgpt');
-  api = new ChatGPTUnofficialProxyAPI({ accessToken: process.env.OPENAI_ACCESS_TOKEN});
-  */
-  const { ChatGPTAPI } = await import('chatgpt');
-  api =  new ChatGPTAPI({ apiKey: process.env.OPENAI_API_KEY });
-  return api;
-}
+const PORT = process.env.PORT || 443;
+
+const app = express();
+const openai = new OpenAI({
+  apiKey: OPENROUTER_API_KEY,
+  baseURL: OPENROUTER_BASE_URL
+})
+
 
 const promptLengthMax = 200;
 
 app.get('/api', async (req, res) => {
-  api = api || await setup();
-  
   const words = req.query.words;
   if (words.length > promptLengthMax) {
     console.error(`Rejected request because prompt was too long: ${words.length} > ${promptLengthMax}`);
@@ -24,16 +25,23 @@ app.get('/api', async (req, res) => {
     return;
   }
 
-  const prompt = `Write a haiku about the following theme: ${words}`;
+  const prompt = `Write a haiku about the following theme: ${words}. ONLY include the haiku in your response, separating each line with a newline.`;
   console.log(`Accepted request with prompt: ${prompt}`);
+
   try {
-    const output = await api.sendMessage(prompt);
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: prompt }],
+      model: MODEL,
+    });
+    console.log(completion.choices);
     res.setHeader('Content-Type', 'text/plain');
-    res.end(output.text);      
+    res.end(completion.choices[0].message.content);
   } catch (error) {
     console.error(`Haiku generation failed:`, error);
     res.status(500).end();
   }
-})
+});
 
-module.exports = app;
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
+});
