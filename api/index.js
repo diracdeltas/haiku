@@ -33,7 +33,7 @@ app.get('/api', async (req, res) => {
       messages: [{ role: "user", content: prompt }],
       model: MODEL,
     });
-    console.log(completion.choices);
+    console.log(`completions: ${completion.choices}`);
     res.setHeader('Content-Type', 'text/plain');
     res.end(completion.choices[0].message.content);
   } catch (error) {
