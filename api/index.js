@@ -33,9 +33,9 @@ app.get('/api', async (req, res) => {
       messages: [{ role: "user", content: prompt }],
       model: MODEL,
     });
-    console.log(`completions: ${completion.choices}`);
+    console.log(`completions: ${JSON.stringify(completion.choices)}`);
     res.setHeader('Content-Type', 'text/plain');
-    res.end(completion.choices[0].message.content);
+    res.end(completion.choices[0].message.content.trim());
   } catch (error) {
     console.error(`Haiku generation failed:`, error);
     res.status(500).end();
