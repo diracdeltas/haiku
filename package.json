@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "pde haiku generator",
   "main": "api/index.js",
+  "type": "module",
   "scripts": {
     "build": "echo \"nothing to build\""
   },
@@ -17,7 +18,7 @@
   },
   "homepage": "https://github.com/diracdeltas/haiku#readme",
   "devDependencies": {
-    "chatgpt": "^5.0.4",
-    "express": "^4.18.2"
+    "express": "5.1.0",
+    "openai": "5.23.1"
   }
 }
