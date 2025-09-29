@@ -36,6 +36,7 @@
       }
 
 			#marquee {
+        display: none;
         text-shadow: #FC0 1px 0 10px;
 				height: 40px;
 				width: 484px;
@@ -46,7 +47,6 @@
 			}
 
 			#marquee div {
-				display: block;
 				width: 200%;
 				position: absolute;
 				overflow: hidden;
@@ -131,8 +131,8 @@
       save.style.display = 'none';
     }
 
-    if (window.location.hash !== '#autosave') {
-      document.querySelector('#marquee').style.display = 'none';
+    if (window.location.hash === '#autosave') {
+      document.querySelector('#marquee').style.display = 'block';
     }
 
     print.onclick = () => {
