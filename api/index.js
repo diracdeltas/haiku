@@ -4,7 +4,7 @@ import express from 'express';
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 const OPENROUTER_BASE_URL =
   process.env.OPENROUTER_BASE_URL || "https://openrouter.ai/api/v1";
-const MODEL = 'tngtech/deepseek-r1t2-chimera:free';
+const MODEL = 'meta-llama/llama-3.3-70b-instruct:free';
 
 const PORT = process.env.PORT || 443;
 
